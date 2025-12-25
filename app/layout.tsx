@@ -2,17 +2,17 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import "./globals.css"
+import "../styles/globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
 
 export const metadata: Metadata = {
-  title: "SubtitleAI - AI Subtitle Generator",
+  title: "SubGEN PRO - AI-Powered Subtitle Editor",
   description:
-    "Transform raw transcripts into publish-ready subtitles with AI. Multi-speaker detection, 100+ languages, and intelligent refinement.",
-  generator: "v0.app",
-  keywords: ["subtitles", "AI", "transcription", "video editing", "captions", "localization"],
+    "Transform raw transcripts into publish-ready subtitles with AI. Multi-speaker detection, 100+ languages, and intelligent refinement powered by Gemini 2.5.",
+  generator: "SubGEN PRO",
+  keywords: ["subtitles", "AI", "transcription", "video editing", "captions", "localization", "Gemini"],
   icons: {
     icon: [
       {
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: "(prefers-color-scheme: light)", color: "#090b0f" },
+    { media: "(prefers-color-scheme: dark)", color: "#090b0f" },
   ],
 }
 
@@ -45,11 +45,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" className="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[#090b0f]`}>
         {children}
         <Analytics />
       </body>
     </html>
   )
 }
+
