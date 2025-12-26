@@ -1,58 +1,51 @@
+import React from 'react';
 import {
-  ChevronsLeft,
+  SkipBack,
+  SkipForward,
   Play,
-  ChevronsRight,
+  Pause,
+  Star,
   LayoutGrid,
-  Settings,
-  Star
+  Settings
 } from "lucide-react";
+import { useEditor } from "./EditorContext";
 
 export default function BottomBar() {
+  const { isPlaying, togglePlay, seekTo, currentTime } = useEditor();
+
   return (
-    <div className="absolute bottom-6 left-6 right-6 h-16 bg-[#141418] rounded-[24px] flex items-center justify-between px-6 shadow-2xl z-30 border border-white/5">
-      {/* Left Transport Cluster */}
-      <div className="flex items-center gap-4">
-        <button className="w-10 h-10 rounded-full bg-[#1A1A1F] flex items-center justify-center text-white/70 hover:text-white hover:bg-white/5 transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
-          <ChevronsLeft className="w-5 h-5" />
+    <footer className="h-32 bg-[#0a0504]/90 backdrop-blur-[60px] border-t border-white/10 px-16 flex items-center justify-between shrink-0 isolation-auto z-50">
+      <div className="flex items-center space-x-10">
+        <button onClick={() => seekTo(currentTime - 5)} className="text-white/40 hover:text-white transition-all"><SkipBack size={26}/></button>
+        <button
+            className="w-18 h-18 bg-white text-[#3A1C14] rounded-full flex items-center justify-center hover:scale-110 shadow-[0_0_50px_rgba(255,255,255,0.3)] transition-all"
+            onClick={togglePlay}
+        >
+          {isPlaying ? <Pause size={38} fill="currentColor" /> : <Play size={38} fill="currentColor" className="ml-1" />}
         </button>
-        <button className="w-12 h-12 rounded-full bg-[#1A1A1F] flex items-center justify-center text-white hover:text-[#D17F3A] hover:bg-white/5 transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)] border border-white/5">
-          <Play className="w-5 h-5 fill-current ml-0.5" />
-        </button>
-        <button className="w-10 h-10 rounded-full bg-[#1A1A1F] flex items-center justify-center text-white/70 hover:text-white hover:bg-white/5 transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
-          <ChevronsRight className="w-5 h-5" />
-        </button>
+        <button onClick={() => seekTo(currentTime + 5)} className="text-white/40 hover:text-white transition-all"><SkipForward size={26}/></button>
       </div>
 
-      {/* Center Configuration Pills */}
-      <div className="flex items-center gap-3">
-        <div className="h-9 px-4 rounded-full bg-[#1A1A1F] flex items-center text-xs font-medium text-white/80 border border-white/5 hover:border-white/20 cursor-pointer transition-colors">
-          9:16
+      <div className="flex items-center space-x-6">
+        <div className="h-14 px-10 rounded-full bg-white text-[#3A1C14] flex items-center space-x-4 shadow-white/20 shadow-2xl transform hover:scale-105 transition-all font-black text-xs uppercase tracking-[0.4em]">
+          <Star size={18} fill="currentColor" /> <span>4K CINEMATIC</span>
         </div>
-
-        {/* Highlighted Resolution Pill */}
-        <div className="h-9 px-4 rounded-full bg-white flex items-center gap-1.5 text-xs font-bold text-[#141418] shadow-[0_0_15px_rgba(255,255,255,0.3)] cursor-pointer hover:scale-105 transition-transform">
-          <Star className="w-3 h-3 fill-current" />
-          <span>1440p</span>
+        <div className="h-14 px-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 text-[11px] font-black uppercase tracking-[0.3em] gap-4">
+           <span className="text-white/20">FPS</span> <span>60</span>
         </div>
-
-        <div className="h-9 px-4 rounded-full bg-[#1A1A1F] flex items-center text-xs font-medium text-white/80 border border-white/5 hover:border-white/20 cursor-pointer transition-colors">
-          18s
-        </div>
-        <div className="h-9 px-4 rounded-full bg-[#1A1A1F] flex items-center gap-2 text-xs font-medium text-white/80 border border-white/5 hover:border-white/20 cursor-pointer transition-colors">
-          <span className="w-2 h-2 rounded-full bg-white/20" />
-          None
+        <div className="h-14 px-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 text-[11px] font-black uppercase tracking-[0.3em] gap-4">
+           <span className="text-white/20">SYNC</span> <span>AUTO</span>
         </div>
       </div>
 
-      {/* Right Tools/Settings */}
-      <div className="flex items-center gap-3">
-        <button className="w-10 h-10 rounded-full bg-[#1A1A1F] flex items-center justify-center text-white/70 hover:text-white hover:bg-white/5 transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
-          <LayoutGrid className="w-4 h-4" />
+      <div className="flex items-center space-x-6">
+        <button className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white/60 hover:text-white border border-white/10">
+            <LayoutGrid size={22}/>
         </button>
-        <button className="w-10 h-10 rounded-full bg-[#1A1A1F] flex items-center justify-center text-white/70 hover:text-white hover:bg-white/5 transition-all shadow-[inset_0_1px_2px_rgba(255,255,255,0.05)]">
-          <Settings className="w-4 h-4" />
+        <button className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center text-white/60 hover:text-white border border-white/10">
+            <Settings size={22}/>
         </button>
       </div>
-    </div>
+    </footer>
   );
 }
