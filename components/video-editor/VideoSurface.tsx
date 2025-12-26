@@ -1,27 +1,44 @@
+import { Upload } from "lucide-react";
+import React from "react";
+import { useEditor } from "./EditorContext";
+
 export default function VideoSurface() {
+  const { videoUrl, setVideoUrl, setVideoFile } = useEditor();
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (videoUrl) URL.revokeObjectURL(videoUrl);
+      setVideoUrl(URL.createObjectURL(file));
+      setVideoFile(file);
+    }
+  };
+
   return (
-    <div className="absolute inset-0 z-0 overflow-hidden">
-      {/* Background/Video Placeholder */}
-      <div className="w-full h-full bg-[#1a1a1f] relative">
-         {/* Gradient overlay to simulate the "warm brown gradient" mentioned in prompt for the canvas if no video */}
-         <div className="absolute inset-0 bg-gradient-to-br from-[#3A1C14] to-[#0d0d0f] opacity-80" />
+    <div className="flex-1 flex flex-col items-center justify-center p-8 lg:p-14 relative overflow-hidden">
+      <div className="relative w-full max-w-5xl aspect-video bg-black rounded-[48px] overflow-hidden shadow-[0_50px_150px_rgba(0,0,0,1)] border border-white/10 group transform-gpu transition-all duration-1000 z-10">
+          {/* Hover purple glow border simulation */}
+          <div className="absolute inset-0 border-2 border-indigo-500/20 rounded-[48px] pointer-events-none group-hover:border-indigo-500/40 transition-all duration-700" />
 
-         {/* The "Eye" Image Placeholder - using a CSS art or abstract representation if image not available */}
-         {/* Since I can't generate the exact image, I'll create an abstract representation of the "eye with red feathers" */}
-         <div className="absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 w-[90vh] h-[90vh] rounded-full blur-[100px] opacity-40 bg-[#5D2D1E]" />
-         <div className="absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 w-[60vh] h-[60vh] rounded-full blur-3xl opacity-60 bg-[#E5352B] mix-blend-screen" />
-         <div className="absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 w-[30vh] h-[30vh] rounded-full blur-2xl opacity-80 bg-[#F9C35C] mix-blend-screen" />
-         <div className="absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 w-[15vh] h-[15vh] rounded-full blur-md opacity-90 bg-[#1A1A1F] border-4 border-[#D17F3A] shadow-[0_0_50px_#D17F3A]" />
-
-         {/* Mocking the eye content */}
-         <div className="absolute top-1/2 left-[35%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] opacity-80 flex items-center justify-center">
-            {/* This would be the video element in a real app */}
-            {/* <div className="text-white/20 font-light text-6xl tracking-widest blur-sm select-none">VIDEO CANVAS</div> */}
-         </div>
+        {videoUrl ? (
+          <video
+            src={videoUrl}
+            className="w-full h-full object-contain pointer-events-none"
+            controls={false}
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="w-32 h-32 rounded-[40px] bg-white/5 border border-white/10 flex items-center justify-center shadow-inner mb-8">
+              <Upload size={40} className="text-white/20" />
+            </div>
+            <button onClick={() => document.getElementById('file-in')?.click()} className="px-12 py-4 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-full text-white/80 font-black uppercase text-xs tracking-widest hover:bg-white/10 transition-all cursor-pointer">Import Master Stream</button>
+            <input id="file-in" type="file" hidden accept="video/*" onChange={handleFileUpload} />
+          </div>
+        )}
       </div>
 
-      {/* Overlay to darken edges for cinematic feel */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
+       {/* Background ambient glow behind the video surface for depth */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-white/5 to-transparent blur-[100px] pointer-events-none z-0" />
     </div>
   );
 }

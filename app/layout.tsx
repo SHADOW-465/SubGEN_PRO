@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import "../styles/globals.css"
+import "./globals.css" // Changed from ../styles/globals.css to ./globals.css as per list_files structure (app/globals.css exists)
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" })
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" })
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#090b0f" },
-    { media: "(prefers-color-scheme: dark)", color: "#090b0f" },
+    { media: "(prefers-color-scheme: light)", color: "#141418" },
+    { media: "(prefers-color-scheme: dark)", color: "#141418" },
   ],
 }
 
@@ -46,11 +46,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[#090b0f]`}>
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-[#141418] text-white overflow-hidden`}>
+        {/* Global Grid Background */}
+        <div className="absolute inset-0 z-0 opacity-10 pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(#22232A 1px, transparent 1px), linear-gradient(90deg, #22232A 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}>
+        </div>
+
+        <div className="relative z-10 w-full h-full">
+            {children}
+        </div>
         <Analytics />
       </body>
     </html>
   )
 }
-

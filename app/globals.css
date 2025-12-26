@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Default Shadcn/Tailwind Variables - Keeping them but overriding for the specific theme where needed or adding new ones */
+  /* Default Shadcn/Tailwind Variables */
   --background: oklch(0.99 0.002 240);
   --foreground: oklch(0.15 0.01 240);
   --card: oklch(1 0 0);
@@ -34,16 +34,16 @@
   --sidebar-border: oklch(0.9 0.01 240);
   --sidebar-ring: oklch(0.55 0.2 250);
 
-  /* Custom Theme Variables for Silent Passage */
+  /* New Liquid/Pill-Box Theme Variables */
   --sp-grid-bg-start: #141418;
   --sp-grid-bg-end: #1A1A1F;
   --sp-grid-line: #22232A;
 
   --sp-panel-gradient-start: #3A1C14;
-  --sp-panel-gradient-end: #5D2D1E;
+  --sp-panel-gradient-end: #1a0d0a; /* Updated end color based on ref */
 
   --sp-accent-red: #E5352B;
-  --sp-accent-gold: #F9C35C;
+  --sp-accent-gold: #d69e2e; /* Updated to match new gold */
   --sp-accent-copper: #D17F3A;
 
   --sp-text-primary: #FFFFFF;
@@ -142,10 +142,40 @@
   }
 }
 
-/* Custom Grid Background Utility */
-.bg-grid-squares {
-  background-size: 40px 40px;
-  background-image:
-    linear-gradient(to right, var(--sp-grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--sp-grid-line) 1px, transparent 1px);
+@layer utilities {
+  /* Custom Grid Background */
+  .bg-grid-squares {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, var(--sp-grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--sp-grid-line) 1px, transparent 1px);
+  }
+
+  /* Liquid Glass Panel */
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-3xl border border-white/10 shadow-2xl;
+  }
+
+  /* Pill Box Button */
+  .pill-box {
+    @apply rounded-full bg-white/5 border border-white/10 flex items-center justify-center transition-all hover:bg-white/10;
+  }
+
+  /* Isolation for stacking contexts */
+  .isolation-isolate {
+    isolation: isolate;
+  }
+
+  .isolation-auto {
+    isolation: auto;
+  }
+
+  /* Scrollbar hider */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

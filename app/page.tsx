@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Zap,
   Globe,
@@ -21,518 +19,218 @@ import {
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#090b0f] text-white">
-      {/* Navigation */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090b0f]/95 backdrop-blur-xl">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#1a365d] to-[#1a365d]/50">
-              <Sparkles className="h-5 w-5 text-[#d69e2e]" />
-              <span className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                SubGEN PRO
+    <div className="min-h-screen bg-transparent text-white overflow-y-auto">
+      {/* Navigation - Glass Effect */}
+      <header className="sticky top-0 z-50 px-6 py-4">
+        <div className="glass-panel rounded-full h-16 flex items-center justify-between px-6 max-w-7xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+              <Sparkles className="h-4 w-4 text-[#E5352B]" />
+              <span className="text-sm font-black tracking-widest uppercase italic">
+                SubGEN <span className="text-[#E5352B] not-italic">PRO</span>
               </span>
             </div>
           </div>
-          <nav className="hidden items-center gap-6 md:flex">
+          <nav className="hidden items-center gap-8 md:flex">
             <Link
               href="#features"
-              className="text-sm text-white/60 hover:text-white transition-colors"
+              className="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors"
             >
               Features
             </Link>
             <Link
               href="#ai-features"
-              className="text-sm text-white/60 hover:text-white transition-colors"
+              className="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors"
             >
               AI Powers
             </Link>
             <Link
               href="#pricing"
-              className="text-sm text-white/60 hover:text-white transition-colors"
+              className="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors"
             >
               Pricing
             </Link>
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Link href="/dashboard">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/70 hover:text-white hover:bg-white/10"
+              <button
+                className="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors"
               >
                 Sign In
-              </Button>
+              </button>
             </Link>
             <Link href="/dashboard">
-              <Button
-                size="sm"
-                className="bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 text-black font-semibold hover:from-[#d69e2e]/90 hover:to-[#d69e2e]/70"
+              <button
+                className="pill-box px-6 py-2.5 bg-[#E5352B] hover:bg-[#c92a20] text-white font-black text-[10px] uppercase tracking-[0.2em] shadow-[0_0_15px_rgba(229,53,43,0.4)]"
               >
-                Get Started Free
-              </Button>
+                Get Started
+              </button>
             </Link>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative container mx-auto px-4 py-24 text-center overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a365d]/20 via-transparent to-transparent pointer-events-none" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#d69e2e]/5 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative container mx-auto px-4 py-24 text-center">
+        {/* Decorative Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#E5352B]/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="relative mx-auto max-w-4xl">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d69e2e]/30 bg-[#d69e2e]/10 px-4 py-2 text-sm">
-            <Sparkles className="h-4 w-4 text-[#d69e2e]" />
-            <span className="text-[#d69e2e]">Powered by Gemini 2.5 Flash AI</span>
+        <div className="relative mx-auto max-w-5xl z-10">
+          <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-[#E5352B]/30 bg-[#E5352B]/10 px-5 py-2">
+            <Sparkles className="h-4 w-4 text-[#E5352B]" />
+            <span className="text-[#E5352B] text-xs font-black uppercase tracking-widest">Powered by Gemini 2.5 Flash</span>
           </div>
-          <h1 className="mb-6 text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-            <span className="bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
-              AI Subtitles That
+
+          <h1 className="mb-8 text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-none">
+            <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              AI Subtitles
             </span>
             <br />
-            <span className="bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/60 bg-clip-text text-transparent">
-              Think Like an Editor
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E5352B] to-[#d69e2e]">
+              Reimagined
             </span>
           </h1>
-          <p className="mx-auto mb-10 max-w-2xl text-lg text-white/60">
-            Transform raw transcripts into publish-ready subtitles in minutes.
-            Multi-speaker detection, 100+ languages, and intelligent refinement
-            that saves you hours of manual editing.
+
+          <p className="mx-auto mb-12 max-w-2xl text-lg text-white/60 font-medium leading-relaxed">
+            Transform raw transcripts into publish-ready masterpieces.
+            Multi-speaker detection, intelligent refinement, and cinematic styles.
           </p>
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+
+          <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
             <Link href="/dashboard">
-              <Button
-                size="lg"
-                className="gap-2 bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 text-black font-semibold hover:from-[#d69e2e]/90 hover:to-[#d69e2e]/70 px-8"
-              >
+              <button className="h-14 px-10 bg-[#E5352B] rounded-full text-white font-black text-xs uppercase tracking-[0.3em] shadow-[0_10px_30px_rgba(229,53,43,0.4)] hover:scale-105 transition-all flex items-center gap-3">
                 Start Free <ArrowRight className="h-4 w-4" />
-              </Button>
+              </button>
             </Link>
-            <Button
-              size="lg"
-              variant="outline"
-              className="gap-2 bg-transparent border-white/20 text-white hover:bg-white/10"
+            <button
+              className="h-14 px-10 pill-box text-white/80 font-black text-xs uppercase tracking-[0.3em] gap-3 hover:bg-white/10"
             >
-              <Play className="h-4 w-4" /> Watch Demo
-            </Button>
-          </div>
-          <p className="mt-6 text-sm text-white/40">
-            No credit card required. 3 free videos per month.
-          </p>
-        </div>
-
-        {/* Hero Stats */}
-        <div className="mx-auto mt-20 grid max-w-3xl grid-cols-1 gap-8 sm:grid-cols-3">
-          <div className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <div className="text-4xl font-bold text-[#d69e2e]">98%</div>
-            <div className="text-sm text-white/60">Transcription Accuracy</div>
-          </div>
-          <div className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <div className="text-4xl font-bold text-[#d69e2e]">100+</div>
-            <div className="text-sm text-white/60">Languages Supported</div>
-          </div>
-          <div className="p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-            <div className="text-4xl font-bold text-[#d69e2e]">90%</div>
-            <div className="text-sm text-white/60">Time Saved vs Manual</div>
+              <Play className="h-4 w-4 fill-current" /> Watch Demo
+            </button>
           </div>
         </div>
-      </section>
 
-      {/* AI Features Section */}
-      <section
-        id="ai-features"
-        className="py-24 border-t border-white/10 bg-gradient-to-b from-[#0d1117] to-[#090b0f]"
-      >
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#1a365d]/50 bg-[#1a365d]/20 px-4 py-2 text-sm text-white/80">
-              <Zap className="h-4 w-4 text-[#d69e2e]" />
-              LLM-Powered Features
+        {/* Hero Stats Pill Grid */}
+        <div className="mx-auto mt-24 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-3">
+          {[
+            { val: "98%", label: "Accuracy" },
+            { val: "100+", label: "Languages" },
+            { val: "10x", label: "Faster" }
+          ].map((stat, i) => (
+            <div key={i} className="glass-panel p-8 rounded-[32px] flex flex-col items-center justify-center hover:bg-white/10 transition-all">
+              <div className="text-5xl font-black text-white mb-2 tracking-tighter">{stat.val}</div>
+              <div className="text-xs font-bold uppercase tracking-[0.2em] text-white/40">{stat.label}</div>
             </div>
-            <h2 className="mb-4 text-4xl font-bold text-white">
-              The AI Brain Behind SubGEN PRO
-            </h2>
-            <p className="text-white/60">
-              Harness the power of Gemini to transform your subtitle workflow.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="border-white/10 bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f] backdrop-blur-sm hover:border-[#d69e2e]/30 transition-all group">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#d69e2e]/10 group-hover:bg-[#d69e2e]/20 transition-colors">
-                  <Wand2 className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  ✨ AI Semantic Refiner
-                </h3>
-                <p className="text-sm text-white/60">
-                  Analyzes the entire subtitle track to fix punctuation,
-                  capitalization, and awkward phrasing while maintaining perfect
-                  timestamp synchronization.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f] backdrop-blur-sm hover:border-[#d69e2e]/30 transition-all group">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#d69e2e]/10 group-hover:bg-[#d69e2e]/20 transition-colors">
-                  <Languages className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  ✨ AI Global Translator
-                </h3>
-                <p className="text-sm text-white/60">
-                  Uses context-aware translation to convert your subtitles into
-                  any target language without losing the "soul" of the dialogue.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f] backdrop-blur-sm hover:border-[#d69e2e]/30 transition-all group">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#d69e2e]/10 group-hover:bg-[#d69e2e]/20 transition-colors">
-                  <Palette className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  ✨ AI Tone Shifter
-                </h3>
-                <p className="text-sm text-white/60">
-                  A creative tool that rewrites your dialogue to match a specific
-                  vibe, such as "Formal", "Hype/Viral", or "Dramatic Cinematic".
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f] backdrop-blur-sm hover:border-[#d69e2e]/30 transition-all group">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#d69e2e]/10 group-hover:bg-[#d69e2e]/20 transition-colors">
-                  <TrendingUp className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  ✨ AI Marketing Hooks
-                </h3>
-                <p className="text-sm text-white/60">
-                  Scans the transcript to generate viral-ready summaries, hooks,
-                  and hashtags for social media distribution.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f] backdrop-blur-sm hover:border-[#d69e2e]/30 transition-all group">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#d69e2e]/10 group-hover:bg-[#d69e2e]/20 transition-colors">
-                  <Mic className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  ✨ AI Voice Refinement
-                </h3>
-                <p className="text-sm text-white/60">
-                  In Live Capture mode, Gemini cleans up your spoken words into
-                  polished, broadcast-ready subtitles as you record.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f] backdrop-blur-sm hover:border-[#d69e2e]/30 transition-all group">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#d69e2e]/10 group-hover:bg-[#d69e2e]/20 transition-colors">
-                  <Scissors className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  ✨ Smart Timeline Editor
-                </h3>
-                <p className="text-sm text-white/60">
-                  Professional-grade timeline with zoom, split tools, draggable
-                  pills, and precise timing controls like Premiere Pro.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* Features Section */}
-      <section
-        id="features"
-        className="border-t border-white/10 bg-[#090b0f] py-24"
-      >
-        <div className="container mx-auto px-4">
+      {/* AI Features Section - Liquid Cards */}
+      <section id="ai-features" className="py-24 relative">
+        <div className="container mx-auto px-4 max-w-7xl">
           <div className="mx-auto mb-16 max-w-2xl text-center">
-            <h2 className="mb-4 text-4xl font-bold text-white">
-              Everything You Need for Perfect Subtitles
+            <h2 className="text-3xl font-black text-white uppercase tracking-widest italic mb-4">
+              Neural <span className="text-[#E5352B]">Engine</span>
             </h2>
-            <p className="text-white/60">
-              From transcription to localization, all powered by advanced AI.
-            </p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a365d]/30">
-                  <Zap className="h-6 w-6 text-[#d69e2e]" />
+            {[
+              { icon: Wand2, title: "Semantic Refiner", desc: "Fixes grammar and phrasing while keeping sync." },
+              { icon: Languages, title: "Global Translator", desc: "Context-aware translation for 100+ locales." },
+              { icon: Palette, title: "Tone Shifter", desc: "Rewrite dialogue: 'Formal', 'Hype', or 'Cinematic'." },
+              { icon: TrendingUp, title: "Marketing Hooks", desc: "Generates viral hooks and hashtags instantly." },
+              { icon: Mic, title: "Voice Refinement", desc: "Cleans up spoken stumbles in real-time." },
+              { icon: Scissors, title: "Smart Trim", desc: "Auto-remove silence and fillers." }
+            ].map((feature, i) => (
+              <div key={i} className="glass-panel p-8 rounded-[40px] group hover:scale-[1.02] transition-transform duration-500 border-white/5 hover:border-[#E5352B]/30">
+                <div className="mb-6 w-14 h-14 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#E5352B] transition-colors duration-500 shadow-inner">
+                  <feature.icon className="h-6 w-6 text-white/70 group-hover:text-white" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  Lightning Fast Transcription
-                </h3>
-                <p className="text-sm text-white/60">
-                  Transcribe hours of video in minutes with Gemini 2.5 Flash.
-                  Word-level timestamps and automatic punctuation.
+                <h3 className="mb-3 text-sm font-black text-white uppercase tracking-widest">{feature.title}</h3>
+                <p className="text-sm text-white/50 leading-relaxed font-medium">
+                  {feature.desc}
                 </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a365d]/30">
-                  <Users className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  Multi-Speaker Detection
-                </h3>
-                <p className="text-sm text-white/60">
-                  Automatically detect and label up to 10 speakers with 95%+
-                  accuracy. Perfect for interviews and podcasts.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a365d]/30">
-                  <Globe className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  True Localization
-                </h3>
-                <p className="text-sm text-white/60">
-                  Translate to 100+ languages with cultural adaptation, not just
-                  literal translation. Preserve humor and context.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a365d]/30">
-                  <Download className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  Flexible Export
-                </h3>
-                <p className="text-sm text-white/60">
-                  Export to SRT, VTT, ASS, and more. Burn subtitles into video
-                  with customizable styles.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a365d]/30">
-                  <Clock className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  Highlight Detection
-                </h3>
-                <p className="text-sm text-white/60">
-                  Automatically find viral moments in long videos. Generate clips
-                  for TikTok, Reels, and Shorts.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-[#1a365d]/30">
-                  <Wand2 className="h-6 w-6 text-[#d69e2e]" />
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  AI Refinement
-                </h3>
-                <p className="text-sm text-white/60">
-                  Context-aware editing that fixes grammar, removes fillers, and
-                  optimizes line breaks for readability.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section
-        id="pricing"
-        className="border-t border-white/10 bg-gradient-to-b from-[#0d1117] to-[#090b0f] py-24"
-      >
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
-            <h2 className="mb-4 text-4xl font-bold text-white">
-              Simple, Transparent Pricing
-            </h2>
-            <p className="text-white/60">
-              Start free, upgrade when you need more.
-            </p>
-          </div>
-
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
-            {/* Free Plan */}
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <h3 className="mb-2 text-lg font-semibold text-white">Free</h3>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-white">$0</span>
-                  <span className="text-white/60">/month</span>
-                </div>
-                <ul className="mb-6 space-y-3 text-sm">
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />3
-                    videos/month
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Up to 30 min each
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />1 language
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Standard presets
-                  </li>
-                </ul>
-                <Link href="/dashboard" className="block">
-                  <Button
-                    variant="outline"
-                    className="w-full bg-transparent border-white/20 text-white hover:bg-white/10"
-                  >
-                    Get Started
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Creator Plan */}
-            <Card className="border-[#d69e2e]/50 bg-gradient-to-br from-[#1a365d]/30 to-[#090b0f] relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="rounded-full bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 px-4 py-1 text-xs font-semibold text-black">
-                  Popular
-                </span>
               </div>
-              <CardContent className="p-6 pt-8">
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  Creator
-                </h3>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-[#d69e2e]">$9</span>
-                  <span className="text-white/60">/month</span>
-                </div>
-                <ul className="mb-6 space-y-3 text-sm">
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    20 videos/month
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Up to 2 hours each
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Unlimited languages
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    All AI features
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Priority support
-                  </li>
-                </ul>
-                <Link href="/dashboard" className="block">
-                  <Button className="w-full bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 text-black font-semibold hover:from-[#d69e2e]/90 hover:to-[#d69e2e]/70">
-                    Start Free Trial
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Pro Plan */}
-            <Card className="border-white/10 bg-white/5 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <h3 className="mb-2 text-lg font-semibold text-white">Pro</h3>
-                <div className="mb-4">
-                  <span className="text-4xl font-bold text-white">$29</span>
-                  <span className="text-white/60">/month</span>
-                </div>
-                <ul className="mb-6 space-y-3 text-sm">
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    100 videos/month
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Up to 10 hours each
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Priority processing
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    Team collaboration
-                  </li>
-                  <li className="flex items-center gap-2 text-white/80">
-                    <CheckCircle2 className="h-4 w-4 text-[#d69e2e]" />
-                    API access
-                  </li>
-                </ul>
-                <Link href="/dashboard" className="block">
-                  <Button
-                    variant="outline"
-                    className="w-full bg-transparent border-white/20 text-white hover:bg-white/10"
-                  >
-                    Start Free Trial
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 border-t border-white/10">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-4 text-4xl font-bold text-white">
-              Ready to Save Hours on Every Video?
+      {/* Pricing Section - Glass Slabs */}
+      <section id="pricing" className="py-24">
+        <div className="container mx-auto px-4 max-w-6xl">
+           <div className="text-center mb-16">
+            <h2 className="text-3xl font-black text-white uppercase tracking-widest italic">
+              Access <span className="text-[#E5352B]">Levels</span>
             </h2>
-            <p className="mb-8 text-white/60">
-              Join thousands of creators using AI-powered subtitles.
-            </p>
-            <Link href="/dashboard">
-              <Button
-                size="lg"
-                className="gap-2 bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 text-black font-semibold hover:from-[#d69e2e]/90 hover:to-[#d69e2e]/70 px-8"
-              >
-                Get Started Free <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
+           </div>
+
+          <div className="grid gap-8 md:grid-cols-3 items-center">
+            {/* Free */}
+            <div className="glass-panel p-8 rounded-[40px] opacity-80 hover:opacity-100 transition-opacity">
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-white/50 mb-6">Starter</h3>
+              <div className="text-4xl font-black text-white mb-8">$0</div>
+              <ul className="space-y-4 mb-8">
+                {["3 Videos/mo", "Basic Export", "1 Language"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-white/60">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/30" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full py-4 rounded-full border border-white/20 text-white/60 font-bold uppercase tracking-widest text-[10px] hover:bg-white/10 transition-all">
+                Get Started
+              </button>
+            </div>
+
+            {/* Pro - Highlighted */}
+            <div className="p-[1px] rounded-[48px] bg-gradient-to-b from-[#E5352B] to-[#1a0d0a] shadow-[0_20px_60px_rgba(229,53,43,0.3)] scale-105 z-10">
+              <div className="bg-[#1a0d0a] p-10 rounded-[47px] h-full flex flex-col">
+                <div className="mb-6 flex justify-between items-center">
+                   <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[#E5352B]">Pro</h3>
+                   <div className="px-3 py-1 rounded-full bg-[#E5352B]/20 text-[#E5352B] text-[9px] font-black uppercase tracking-widest">Popular</div>
+                </div>
+                <div className="text-5xl font-black text-white mb-8">$19</div>
+                <ul className="space-y-4 mb-10 flex-1">
+                  {["Unlimited Videos", "4K Export", "All AI Tools", "Priority Render"].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-white">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#E5352B]" /> {item}
+                    </li>
+                  ))}
+                </ul>
+                <button className="w-full py-5 rounded-full bg-[#E5352B] text-white font-black uppercase tracking-[0.2em] text-[10px] hover:scale-105 transition-all shadow-[0_0_20px_rgba(229,53,43,0.5)]">
+                  Unlock Pro
+                </button>
+              </div>
+            </div>
+
+             {/* Studio */}
+             <div className="glass-panel p-8 rounded-[40px] opacity-80 hover:opacity-100 transition-opacity">
+              <h3 className="text-xs font-black uppercase tracking-[0.3em] text-white/50 mb-6">Studio</h3>
+              <div className="text-4xl font-black text-white mb-8">$49</div>
+              <ul className="space-y-4 mb-8">
+                {["API Access", "Team Seats", "Custom Models"].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-white/60">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white/30" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <button className="w-full py-4 rounded-full border border-white/20 text-white/60 font-bold uppercase tracking-widest text-[10px] hover:bg-white/10 transition-all">
+                Contact Sales
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8 bg-[#0d1117]">
-        <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 sm:flex-row">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-[#d69e2e]" />
-            <span className="font-semibold text-white">SubGEN PRO</span>
+      <footer className="py-12 border-t border-white/5 bg-black/20">
+        <div className="container mx-auto px-4 text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="h-5 w-5 text-[#E5352B]" />
+            <span className="font-black text-white tracking-widest uppercase">SubGEN PRO</span>
           </div>
-          <p className="text-sm text-white/40">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20">
             © 2025 SubGEN PRO. All rights reserved.
           </p>
         </div>
