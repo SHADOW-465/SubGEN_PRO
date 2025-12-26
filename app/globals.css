@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* Default Shadcn/Tailwind Variables - Keeping them but overriding for the specific theme where needed or adding new ones */
   --background: oklch(0.99 0.002 240);
   --foreground: oklch(0.15 0.01 240);
   --card: oklch(1 0 0);
@@ -23,11 +24,6 @@
   --border: oklch(0.9 0.01 240);
   --input: oklch(0.9 0.01 240);
   --ring: oklch(0.55 0.2 250);
-  --chart-1: oklch(0.55 0.2 250);
-  --chart-2: oklch(0.6 0.15 180);
-  --chart-3: oklch(0.65 0.18 140);
-  --chart-4: oklch(0.7 0.15 60);
-  --chart-5: oklch(0.6 0.2 30);
   --radius: 0.625rem;
   --sidebar: oklch(0.98 0.002 240);
   --sidebar-foreground: oklch(0.15 0.01 240);
@@ -37,6 +33,21 @@
   --sidebar-accent-foreground: oklch(0.2 0.01 240);
   --sidebar-border: oklch(0.9 0.01 240);
   --sidebar-ring: oklch(0.55 0.2 250);
+
+  /* Custom Theme Variables for Silent Passage */
+  --sp-grid-bg-start: #141418;
+  --sp-grid-bg-end: #1A1A1F;
+  --sp-grid-line: #22232A;
+
+  --sp-panel-gradient-start: #3A1C14;
+  --sp-panel-gradient-end: #5D2D1E;
+
+  --sp-accent-red: #E5352B;
+  --sp-accent-gold: #F9C35C;
+  --sp-accent-copper: #D17F3A;
+
+  --sp-text-primary: #FFFFFF;
+  --sp-text-secondary: #E6D8C9;
 }
 
 .dark {
@@ -59,11 +70,6 @@
   --border: oklch(0.25 0.01 240);
   --input: oklch(0.25 0.01 240);
   --ring: oklch(0.65 0.2 250);
-  --chart-1: oklch(0.65 0.2 250);
-  --chart-2: oklch(0.65 0.15 180);
-  --chart-3: oklch(0.7 0.18 140);
-  --chart-4: oklch(0.75 0.15 60);
-  --chart-5: oklch(0.65 0.2 30);
   --sidebar: oklch(0.15 0.01 240);
   --sidebar-foreground: oklch(0.95 0.01 240);
   --sidebar-primary: oklch(0.65 0.2 250);
@@ -113,6 +119,18 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Silent Passage Custom Colors */
+  --color-sp-grid-start: var(--sp-grid-bg-start);
+  --color-sp-grid-end: var(--sp-grid-bg-end);
+  --color-sp-grid-line: var(--sp-grid-line);
+  --color-sp-panel-start: var(--sp-panel-gradient-start);
+  --color-sp-panel-end: var(--sp-panel-gradient-end);
+  --color-sp-accent-red: var(--sp-accent-red);
+  --color-sp-accent-gold: var(--sp-accent-gold);
+  --color-sp-accent-copper: var(--sp-accent-copper);
+  --color-sp-text-primary: var(--sp-text-primary);
+  --color-sp-text-secondary: var(--sp-text-secondary);
 }
 
 @layer base {
@@ -122,4 +140,12 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom Grid Background Utility */
+.bg-grid-squares {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--sp-grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--sp-grid-line) 1px, transparent 1px);
 }
