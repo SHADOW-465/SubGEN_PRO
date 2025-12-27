@@ -15,11 +15,24 @@ export default function VideoSurface() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-8 lg:p-14 relative overflow-hidden">
-      <div className="relative w-full max-w-5xl aspect-video bg-black rounded-[48px] overflow-hidden shadow-[0_50px_150px_rgba(0,0,0,1)] border border-white/10 group transform-gpu transition-all duration-1000 z-10">
-          {/* Hover purple glow border simulation */}
-          <div className="absolute inset-0 border-2 border-indigo-500/20 rounded-[48px] pointer-events-none group-hover:border-indigo-500/40 transition-all duration-700" />
+    <div className="relative flex-1 w-full overflow-hidden">
+       {/* Background - The "Eye" Abstract Art from Reference */}
+       <div className="absolute inset-0 bg-black z-0 pointer-events-none">
+          <div className="absolute inset-0 opacity-90 scale-110" style={{
+            background: `radial-gradient(circle at 35% 45%, #e5352b 0%, #3a1c14 30%, #1a0d0a 60%)`
+          }}>
+             <div className="absolute top-[20%] left-[10%] w-[300px] h-[300px] bg-[#f9c35c]/10 blur-[80px] rounded-full rotate-45 animate-pulse" />
+             <div className="absolute bottom-[10%] right-[20%] w-[400px] h-[200px] bg-[#d17f3a]/20 blur-[100px] rounded-full -rotate-12" />
+             <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border-[12px] border-[#d17f3a]/30 flex items-center justify-center shadow-[0_0_50px_rgba(209,127,58,0.2)]">
+                 <div className="w-24 h-24 rounded-full bg-black/80 flex items-center justify-center overflow-hidden">
+                     <div className="w-8 h-8 rounded-full bg-white/10 blur-[2px] animate-pulse" />
+                 </div>
+             </div>
+          </div>
+       </div>
 
+       {/* Video Content */}
+       <div className="relative z-10 w-full h-full flex items-center justify-center">
         {videoUrl ? (
           <video
             src={videoUrl}
@@ -27,18 +40,19 @@ export default function VideoSurface() {
             controls={false}
           />
         ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="w-32 h-32 rounded-[40px] bg-white/5 border border-white/10 flex items-center justify-center shadow-inner mb-8">
-              <Upload size={40} className="text-white/20" />
-            </div>
-            <button onClick={() => document.getElementById('file-in')?.click()} className="px-12 py-4 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-full text-white/80 font-black uppercase text-xs tracking-widest hover:bg-white/10 transition-all cursor-pointer">Import Master Stream</button>
-            <input id="file-in" type="file" hidden accept="video/*" onChange={handleFileUpload} />
+          <div className="flex flex-col items-center justify-center z-20">
+             {/* Upload Trigger aligned with the aesthetic */}
+             <div
+                onClick={() => document.getElementById('file-in')?.click()}
+                className="w-24 h-24 rounded-full bg-white/5 border border-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer hover:bg-white/10 hover:scale-105 transition-all shadow-[0_0_40px_rgba(0,0,0,0.5)] group"
+             >
+                <Upload size={32} className="text-white/50 group-hover:text-white transition-colors" />
+             </div>
+             <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-white/40">Drop Master Stream</p>
+             <input id="file-in" type="file" hidden accept="video/*" onChange={handleFileUpload} />
           </div>
         )}
-      </div>
-
-       {/* Background ambient glow behind the video surface for depth */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-white/5 to-transparent blur-[100px] pointer-events-none z-0" />
+       </div>
     </div>
   );
 }
