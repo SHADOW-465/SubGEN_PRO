@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -32,11 +32,9 @@ import {
   CreditCard,
   LogOut,
   ChevronDown,
-  Zap,
-  Globe,
-  FileText,
   ArrowRight,
   Play,
+  Zap
 } from "lucide-react";
 
 // Mock data
@@ -94,19 +92,19 @@ const mockProjects: Project[] = [
 const statusConfig = {
   processing: {
     label: "Processing",
-    className: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+    className: "bg-blue-500/10 text-blue-400 border-blue-500/20 pill-box px-3 py-1 text-[10px] font-black uppercase tracking-wider",
   },
   ready: {
     label: "Ready",
-    className: "bg-green-500/20 text-green-400 border-green-500/30",
+    className: "bg-green-500/10 text-green-400 border-green-500/20 pill-box px-3 py-1 text-[10px] font-black uppercase tracking-wider",
   },
   needs_review: {
-    label: "Needs Review",
-    className: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+    label: "Review",
+    className: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20 pill-box px-3 py-1 text-[10px] font-black uppercase tracking-wider",
   },
   error: {
     label: "Error",
-    className: "bg-red-500/20 text-red-400 border-red-500/30",
+    className: "bg-red-500/10 text-red-400 border-red-500/20 pill-box px-3 py-1 text-[10px] font-black uppercase tracking-wider",
   },
 };
 
@@ -127,202 +125,138 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#090b0f] text-white">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#090b0f]/95 backdrop-blur-xl">
-        <div className="flex h-16 items-center justify-between px-6">
+    <div className="min-h-screen bg-transparent text-white overflow-y-auto">
+
+      {/* Top Navigation - Glass Strip */}
+      <header className="sticky top-4 z-50 px-6 pointer-events-none">
+        <div className="glass-panel rounded-full h-20 flex items-center justify-between px-8 shadow-2xl pointer-events-auto max-w-[1600px] mx-auto">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#1a365d] to-[#1a365d]/50">
-                <Sparkles className="h-5 w-5 text-[#d69e2e]" />
-                <span className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                  SubGEN PRO
-                </span>
-              </div>
+            <Link href="/" className="flex items-center gap-3 group">
+               <div className="w-10 h-10 rounded-full bg-[#E5352B]/10 border border-[#E5352B]/20 flex items-center justify-center group-hover:bg-[#E5352B]/20 transition-all">
+                  <Sparkles className="h-5 w-5 text-[#E5352B]" />
+               </div>
+               <span className="text-sm font-black tracking-widest uppercase italic text-white">
+                  SubGEN <span className="text-[#E5352B] not-italic">PRO</span>
+               </span>
             </Link>
-            <nav className="hidden items-center gap-1 md:flex">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white hover:bg-white/10"
-              >
-                Projects
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/60 hover:text-white hover:bg-white/10"
-              >
-                Templates
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/60 hover:text-white hover:bg-white/10"
-              >
-                Glossaries
-              </Button>
+            <div className="h-8 w-[1px] bg-white/10 hidden md:block" />
+            <nav className="hidden items-center gap-4 md:flex">
+               {['Projects', 'Templates', 'Glossaries'].map((item, i) => (
+                  <button key={i} className={`px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] transition-all
+                    ${i === 0
+                        ? 'bg-white text-[#3A1C14] shadow-[0_0_15px_rgba(255,255,255,0.3)]'
+                        : 'text-white/40 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {item}
+                  </button>
+               ))}
             </nav>
           </div>
 
-          <div className="flex items-center gap-3">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="gap-2 hover:bg-white/10"
-                >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#d69e2e] to-[#d69e2e]/70 text-black font-bold">
-                    J
-                  </div>
-                  <ChevronDown className="h-4 w-4 text-white/60" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="w-48 bg-[#0d1117] border-white/10"
-              >
-                <DropdownMenuItem className="text-white hover:bg-white/10">
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-white hover:bg-white/10">
-                  <CreditCard className="mr-2 h-4 w-4" />
-                  Billing
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-white/10" />
-                <DropdownMenuItem className="text-red-400 hover:bg-red-500/10">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="flex items-center gap-4">
+             <div className="relative hidden md:block">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
+                <input
+                    type="text"
+                    placeholder="SEARCH PROJECTS..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="h-10 w-64 rounded-full bg-black/20 border border-white/10 pl-10 pr-4 text-[10px] font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-[#E5352B]/50 transition-all uppercase tracking-wider"
+                />
+             </div>
+
+             <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all">
+                <Settings className="w-4 h-4" />
+             </button>
+
+             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E5352B] to-[#1a0d0a] border border-[#E5352B]/50 flex items-center justify-center font-black text-xs shadow-[0_0_10px_rgba(229,53,43,0.4)]">
+                J
+             </div>
           </div>
         </div>
       </header>
 
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="hidden w-64 border-r border-white/10 bg-[#0d1117]/50 backdrop-blur-xl md:block">
-          <div className="flex h-[calc(100vh-4rem)] flex-col p-4">
-            <Button
+      <div className="flex max-w-[1600px] mx-auto pt-8 px-6 pb-10 gap-8">
+
+        {/* Floating Sidebar */}
+        <aside className="hidden w-64 flex-col gap-6 md:flex sticky top-28 h-[calc(100vh-8rem)]">
+           <button
               onClick={() => setUploadModalOpen(true)}
-              className="mb-6 gap-2 bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 text-black font-semibold hover:from-[#d69e2e]/90 hover:to-[#d69e2e]/70"
+              className="w-full py-4 bg-[#E5352B] rounded-[24px] text-white font-black text-[11px] uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(229,53,43,0.3)] hover:scale-105 transition-all flex items-center justify-center gap-3"
             >
-              <Plus className="h-4 w-4" />
-              New Project
-            </Button>
+              <Plus className="h-4 w-4" /> New Project
+           </button>
 
-            <nav className="space-y-1">
-              <Button
-                variant="ghost"
-                className="w-full justify-start gap-2 text-white bg-white/5"
-              >
-                <Clock className="h-4 w-4 text-[#d69e2e]" />
-                Recent
-              </Button>
-              <Button
-                variant="ghost"
-                className="w-full justify-start gap-2 text-white/60 hover:text-white hover:bg-white/5"
-              >
-                <Star className="h-4 w-4" />
-                Favorites
-              </Button>
-              <Button
-                variant="ghost"
-                className="w-full justify-start gap-2 text-white/60 hover:text-white hover:bg-white/5"
-              >
-                <FolderOpen className="h-4 w-4" />
-                All Projects
-              </Button>
-              <Button
-                variant="ghost"
-                className="w-full justify-start gap-2 text-white/60 hover:text-white hover:bg-white/5"
-              >
-                <Trash2 className="h-4 w-4" />
-                Trash
-              </Button>
-            </nav>
-
-            <div className="mt-auto">
-              <Card className="bg-gradient-to-br from-[#1a365d]/30 to-[#1a365d]/10 border-white/10">
-                <CardContent className="p-4">
-                  <div className="mb-2 text-sm font-medium text-white">
-                    Usage This Month
-                  </div>
-                  <div className="mb-2 text-xs text-white/60">4 / 20 videos</div>
-                  <Progress value={20} className="h-2 bg-white/10" />
-                  <Button
-                    variant="link"
-                    size="sm"
-                    className="mt-3 h-auto p-0 text-xs text-[#d69e2e] hover:text-[#d69e2e]/80"
+           <div className="glass-panel flex-1 rounded-[32px] p-6 flex flex-col gap-2">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-4 px-2">Library</h3>
+              {[
+                  { icon: Clock, label: "Recent", active: true },
+                  { icon: Star, label: "Favorites", active: false },
+                  { icon: FolderOpen, label: "All Files", active: false },
+                  { icon: Trash2, label: "Trash", active: false }
+              ].map((item, i) => (
+                  <button key={i} className={`w-full flex items-center gap-4 px-4 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider transition-all
+                      ${item.active
+                        ? 'bg-white/10 text-white border border-white/10 shadow-lg'
+                        : 'text-white/50 hover:text-white hover:bg-white/5 border border-transparent'
+                      }`}
                   >
-                    Upgrade Plan <ArrowRight className="h-3 w-3 ml-1" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+                      <item.icon className={`w-4 h-4 ${item.active ? 'text-[#E5352B]' : 'opacity-50'}`} />
+                      {item.label}
+                  </button>
+              ))}
+
+              <div className="mt-auto pt-6 border-t border-white/5">
+                 <div className="bg-gradient-to-br from-[#3A1C14] to-[#1a0d0a] rounded-2xl p-5 border border-white/5 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <Zap className="w-12 h-12 text-[#E5352B]" />
+                    </div>
+                    <div className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-2">Usage</div>
+                    <div className="flex items-end gap-1 mb-2">
+                        <span className="text-2xl font-black text-white">4</span>
+                        <span className="text-xs font-bold text-white/40 mb-1">/ 20</span>
+                    </div>
+                    <Progress value={20} className="h-1.5 bg-black/40 mb-4" />
+                    <button className="text-[9px] font-black uppercase tracking-[0.2em] text-[#E5352B] hover:text-white transition-colors flex items-center gap-1">
+                        Upgrade Plan <ArrowRight className="w-3 h-3" />
+                    </button>
+                 </div>
+              </div>
+           </div>
         </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 p-6">
+        {/* Main Content Area */}
+        <main className="flex-1 flex flex-col gap-8">
+
           {/* Header Row */}
-          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-white">Projects</h1>
-              <p className="text-sm text-white/60">
+              <h1 className="text-4xl font-black text-white uppercase italic tracking-tighter mb-2">
+                 Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E5352B] to-[#d69e2e]">Studio</span>
+              </h1>
+              <p className="text-xs font-bold text-white/40 uppercase tracking-[0.2em]">
                 Manage your subtitle projects
               </p>
             </div>
-            <Button
-              onClick={() => setUploadModalOpen(true)}
-              className="gap-2 md:hidden bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 text-black"
-            >
-              <Plus className="h-4 w-4" />
-              New Project
-            </Button>
-          </div>
 
-          {/* Search and Filters */}
-          <div className="mb-6 flex items-center gap-3">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
-              <Input
-                placeholder="Search projects..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus-visible:ring-[#d69e2e]"
-              />
-            </div>
-            <div className="flex items-center gap-1 rounded-lg border border-white/10 p-1 bg-white/5">
-              <Button
-                variant={viewMode === "grid" ? "secondary" : "ghost"}
-                size="icon"
-                className={`h-8 w-8 ${viewMode === "grid"
-                    ? "bg-[#1a365d] text-white"
-                    : "text-white/60 hover:text-white hover:bg-white/10"
-                  }`}
+            <div className="flex items-center gap-3 bg-black/20 p-1.5 rounded-full border border-white/10">
+              <button
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${viewMode === 'grid' ? 'bg-white/10 text-white shadow-lg' : 'text-white/40 hover:text-white'}`}
                 onClick={() => setViewMode("grid")}
               >
                 <Grid3X3 className="h-4 w-4" />
-              </Button>
-              <Button
-                variant={viewMode === "list" ? "secondary" : "ghost"}
-                size="icon"
-                className={`h-8 w-8 ${viewMode === "list"
-                    ? "bg-[#1a365d] text-white"
-                    : "text-white/60 hover:text-white hover:bg-white/10"
-                  }`}
+              </button>
+              <button
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${viewMode === 'list' ? 'bg-white/10 text-white shadow-lg' : 'text-white/40 hover:text-white'}`}
                 onClick={() => setViewMode("list")}
               >
                 <List className="h-4 w-4" />
-              </Button>
+              </button>
             </div>
           </div>
 
-          {/* Upload Drop Zone */}
+          {/* Upload Drop Zone - Liquid Style */}
           <motion.div
             onDragOver={(e) => {
               e.preventDefault();
@@ -330,50 +264,43 @@ export default function DashboardPage() {
             }}
             onDragLeave={() => setIsDragOver(false)}
             onDrop={handleDrop}
-            className={`mb-6 rounded-xl border-2 border-dashed p-8 text-center transition-all ${isDragOver
-                ? "border-[#d69e2e] bg-[#d69e2e]/10"
-                : "border-white/10 bg-white/5 hover:border-white/20"
+            whileHover={{ scale: 1.01 }}
+            className={`relative rounded-[32px] border-2 border-dashed p-10 text-center transition-all overflow-hidden group cursor-pointer
+                ${isDragOver
+                ? "border-[#E5352B] bg-[#E5352B]/5"
+                : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
               }`}
           >
-            <Upload
-              className={`mx-auto h-10 w-10 mb-4 ${isDragOver ? "text-[#d69e2e]" : "text-white/40"
-                }`}
-            />
-            <p className="text-white/80 mb-1">
-              Drag and drop your video here
-            </p>
-            <p className="text-sm text-white/40">
-              or{" "}
-              <button className="text-[#d69e2e] hover:underline">
-                browse files
-              </button>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
+
+            <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-colors ${isDragOver ? 'bg-[#E5352B]/20 text-[#E5352B]' : 'bg-white/5 text-white/30 group-hover:text-white group-hover:bg-white/10'}`}>
+                <Upload className="w-6 h-6" />
+            </div>
+            <h3 className="text-lg font-black text-white uppercase italic tracking-wider mb-2">Drop Master Video</h3>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/40">
+              or <span className="text-[#E5352B] underline decoration-[#E5352B]/50 hover:text-white transition-colors">Browse Files</span> to upload
             </p>
           </motion.div>
 
           {/* Projects Grid/List */}
           {filteredProjects.length === 0 ? (
-            <Card className="border-dashed border-white/10 bg-white/5">
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <div className="mb-4 rounded-full bg-white/10 p-4">
-                  <Video className="h-8 w-8 text-white/40" />
+            <div className="glass-panel p-12 rounded-[32px] flex flex-col items-center justify-center text-center">
+                <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6">
+                   <Video className="w-8 h-8 text-white/20" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-white">
-                  No projects yet
-                </h3>
-                <p className="mb-4 text-center text-sm text-white/60">
-                  Upload your first video to get started with AI subtitles.
+                <h3 className="text-lg font-black text-white uppercase italic tracking-wider mb-2">No Projects</h3>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-8 max-w-md">
+                  Upload your first video to unlock the power of the Neural Engine.
                 </p>
-                <Button
+                <button
                   onClick={() => setUploadModalOpen(true)}
-                  className="gap-2 bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/80 text-black"
+                  className="pill-box px-8 py-3 bg-[#E5352B] text-white font-black text-[10px] uppercase tracking-[0.2em] hover:bg-[#c92a20]"
                 >
-                  <Upload className="h-4 w-4" />
-                  Upload Video
-                </Button>
-              </CardContent>
-            </Card>
+                  Create Project
+                </button>
+            </div>
           ) : viewMode === "grid" ? (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filteredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
@@ -386,7 +313,7 @@ export default function DashboardPage() {
               ))}
             </div>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {filteredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
@@ -410,78 +337,62 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link href={`/editor/${project.id}`}>
-      <Card className="group cursor-pointer overflow-hidden transition-all border-white/10 bg-[#0d1117]/50 hover:border-[#d69e2e]/50 hover:bg-[#0d1117]/80">
-        <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f]">
+      <div className="group cursor-pointer relative rounded-[32px] p-2 bg-white/[0.03] border border-white/5 hover:border-[#E5352B]/30 hover:bg-white/[0.06] transition-all duration-500 shadow-2xl hover:scale-[1.02]">
+
+        {/* Thumbnail Container */}
+        <div className="relative aspect-video rounded-[24px] overflow-hidden mb-4 bg-black">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#3A1C14] to-[#1a0d0a] opacity-60 mix-blend-overlay z-10" />
           <img
             src={project.thumbnail || "/placeholder.svg"}
             alt={project.name}
-            className="h-full w-full object-cover transition-transform group-hover:scale-105 opacity-60"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#090b0f] to-transparent" />
-          <div className="absolute bottom-2 right-2 rounded-lg bg-black/70 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
-            {project.duration}
+
+          <div className="absolute top-3 right-3 z-20">
+             <div className="bg-black/60 backdrop-blur-md px-2 py-1 rounded-lg border border-white/10 text-[9px] font-black text-white tracking-widest flex items-center gap-1">
+                <Clock className="w-3 h-3 text-[#d69e2e]" /> {project.duration}
+             </div>
           </div>
+
+          <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="w-14 h-14 rounded-full bg-[#E5352B]/90 backdrop-blur-sm flex items-center justify-center shadow-[0_0_30px_rgba(229,53,43,0.5)] transform scale-50 group-hover:scale-100 transition-transform duration-300">
+               <Play className="w-6 h-6 text-white ml-1 fill-white" />
+            </div>
+          </div>
+
           {project.status === "processing" && project.progress && (
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+            <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-white/10 z-20">
               <motion.div
-                className="h-full bg-gradient-to-r from-[#d69e2e] to-[#d69e2e]/50"
+                className="h-full bg-[#E5352B]"
                 initial={{ width: 0 }}
                 animate={{ width: `${project.progress}%` }}
               />
             </div>
           )}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <div className="h-12 w-12 rounded-full bg-[#d69e2e] flex items-center justify-center">
-              <Play className="h-5 w-5 text-black ml-0.5" />
+        </div>
+
+        {/* Content */}
+        <div className="px-2 pb-2">
+          <div className="flex justify-between items-start mb-3">
+             <div>
+                <h3 className="font-bold text-white text-sm mb-1 line-clamp-1 group-hover:text-[#E5352B] transition-colors">{project.name}</h3>
+                <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest">{project.updatedAt}</p>
+             </div>
+             <button className="text-white/30 hover:text-white transition-colors">
+                <MoreVertical className="w-4 h-4" />
+             </button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className={status.className}>
+                {status.label}
             </div>
+            {project.languages.map(lang => (
+                <div key={lang} className="px-2 py-1 rounded-full bg-white/5 border border-white/5 text-[9px] font-bold text-white/50">{lang}</div>
+            ))}
           </div>
         </div>
-        <CardContent className="p-4">
-          <div className="mb-2 flex items-start justify-between gap-2">
-            <h3 className="line-clamp-1 font-medium text-white">
-              {project.name}
-            </h3>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild onClick={(e) => e.preventDefault()}>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 shrink-0 text-white/60 hover:text-white hover:bg-white/10"
-                >
-                  <MoreVertical className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="bg-[#0d1117] border-white/10"
-              >
-                <DropdownMenuItem className="text-white hover:bg-white/10">
-                  Open Editor
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-white hover:bg-white/10">
-                  Duplicate
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-white hover:bg-white/10">
-                  Export
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-white/10" />
-                <DropdownMenuItem className="text-red-400 hover:bg-red-500/10">
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className={status.className}>
-              {status.label}
-            </Badge>
-            <span className="text-xs text-white/50">
-              {project.languages.join(", ")}
-            </span>
-          </div>
-          <p className="mt-2 text-xs text-white/40">{project.updatedAt}</p>
-        </CardContent>
-      </Card>
+      </div>
     </Link>
   );
 }
@@ -491,61 +402,41 @@ function ProjectListItem({ project }: { project: Project }) {
 
   return (
     <Link href={`/editor/${project.id}`}>
-      <Card className="cursor-pointer transition-all border-white/10 bg-[#0d1117]/50 hover:border-[#d69e2e]/50 hover:bg-[#0d1117]/80">
-        <CardContent className="flex items-center gap-4 p-4">
-          <div className="relative h-16 w-28 shrink-0 overflow-hidden rounded-lg bg-gradient-to-br from-[#1a365d]/20 to-[#090b0f]">
-            <img
-              src={project.thumbnail || "/placeholder.svg"}
-              alt={project.name}
-              className="h-full w-full object-cover opacity-60"
-            />
-            <div className="absolute bottom-1 right-1 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-medium text-white backdrop-blur-sm">
-              {project.duration}
-            </div>
+      <div className="group cursor-pointer rounded-[24px] p-3 bg-white/[0.03] border border-white/5 hover:border-[#E5352B]/30 hover:bg-white/[0.06] transition-all flex items-center gap-6">
+
+        {/* Thumbnail */}
+        <div className="relative w-32 aspect-video rounded-xl overflow-hidden shrink-0 bg-black">
+           <img
+            src={project.thumbnail || "/placeholder.svg"}
+            alt={project.name}
+            className="h-full w-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-[#E5352B]/20 mix-blend-overlay" />
+          <div className="absolute bottom-1 right-1 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] font-black text-white tracking-widest">
+            {project.duration}
           </div>
-          <div className="flex-1">
-            <h3 className="font-medium text-white">{project.name}</h3>
-            <div className="mt-1 flex items-center gap-2">
-              <Badge variant="secondary" className={status.className}>
-                {status.label}
-              </Badge>
-              <span className="text-xs text-white/50">
-                {project.languages.join(", ")}
-              </span>
-            </div>
-          </div>
-          <div className="text-sm text-white/40">{project.updatedAt}</div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild onClick={(e) => e.preventDefault()}>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-white/60 hover:text-white hover:bg-white/10"
-              >
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-[#0d1117] border-white/10"
-            >
-              <DropdownMenuItem className="text-white hover:bg-white/10">
-                Open Editor
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-white hover:bg-white/10">
-                Duplicate
-              </DropdownMenuItem>
-              <DropdownMenuItem className="text-white hover:bg-white/10">
-                Export
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-white/10" />
-              <DropdownMenuItem className="text-red-400 hover:bg-red-500/10">
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </CardContent>
-      </Card>
+        </div>
+
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+           <h3 className="font-bold text-white text-sm mb-1 group-hover:text-[#E5352B] transition-colors truncate">{project.name}</h3>
+           <div className="flex items-center gap-2">
+             <div className={status.className}>{status.label}</div>
+             <span className="text-[10px] font-bold text-white/30 uppercase tracking-wider">{project.updatedAt}</span>
+           </div>
+        </div>
+
+        {/* Metadata */}
+        <div className="hidden sm:flex gap-1">
+           {project.languages.map(lang => (
+                <div key={lang} className="px-2 py-1 rounded-full bg-white/5 border border-white/5 text-[9px] font-bold text-white/50">{lang}</div>
+            ))}
+        </div>
+
+        <button className="p-2 rounded-full hover:bg-white/10 text-white/30 hover:text-white transition-colors">
+            <MoreVertical className="w-4 h-4" />
+        </button>
+      </div>
     </Link>
   );
 }
