@@ -1,20 +1,49 @@
 import React from 'react';
-import { Sparkles, Eye, Activity, Plus, Send, X, Mic } from "lucide-react";
+import { Sparkles, Eye, Activity, Plus, Send, X, Mic, AlertCircle } from "lucide-react";
 import { useEditor } from "./EditorContext";
 import { LiquidButton } from "@/components/ui/LiquidButton";
+import { extractAudio } from "@/utils/audio";
+import { transcribeMedia } from "@/utils/gemini";
 
 export default function PromptPanel() {
-  const { activeTab, setActiveTab, subtitles, setSubtitles, isProcessing, setIsProcessing, addSubtitle, currentTime } = useEditor();
+  const {
+    activeTab, setActiveTab, subtitles, setSubtitles,
+    isProcessing, setIsProcessing, videoFile, setStatusMessage
+  } = useEditor();
 
   const handleAITranscribe = async () => {
+    if (!videoFile) {
+       alert("Please upload a video first.");
+       return;
+    }
+
+    const apiKey = localStorage.getItem("subgen_api_key");
+    if (!apiKey) {
+       alert("Please configure your Gemini API Key in Settings (Dashboard).");
+       return;
+    }
+
     setIsProcessing(true);
-    // Simulate API delay
-    setTimeout(() => {
+    setStatusMessage("EXTRACTING AUDIO...");
+
+    try {
+        // 1. Extract Audio
+        const audioBase64 = await extractAudio(videoFile);
+
+        // 2. Transcribe
+        setStatusMessage("NEURAL PROCESSING...");
+        const newSubtitles = await transcribeMedia(apiKey, audioBase64);
+
+        setSubtitles(newSubtitles);
+        setStatusMessage("SYSTEM READY");
+
+    } catch (error: any) {
+        console.error(error);
+        alert("Error: " + error.message);
+        setStatusMessage("ERROR");
+    } finally {
         setIsProcessing(false);
-        // Add sample subtitles on completion to verify timeline logic
-        addSubtitle({ id: Date.now(), start: currentTime, end: currentTime + 5, text: "AI GENERATED CAPTION" });
-        addSubtitle({ id: Date.now() + 1, start: currentTime + 6, end: currentTime + 10, text: "SECOND SEGMENT" });
-    }, 1500);
+    }
   };
 
   return (

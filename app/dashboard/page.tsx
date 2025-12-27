@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { SettingsDialog } from "@/components/dashboard/SettingsDialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -112,6 +113,7 @@ export default function DashboardPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [searchQuery, setSearchQuery] = useState("");
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const filteredProjects = mockProjects.filter((project) =>
@@ -166,7 +168,10 @@ export default function DashboardPage() {
                 />
              </div>
 
-             <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all">
+             <button
+                onClick={() => setSettingsOpen(true)}
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all"
+             >
                 <Settings className="w-4 h-4" />
              </button>
 
@@ -328,6 +333,7 @@ export default function DashboardPage() {
           )}
         </main>
       </div>
+      <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
     </div>
   );
 }
