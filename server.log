@@ -14,3 +14,8 @@
  ○ Compiling /dashboard ...
  GET /dashboard 200 in 9.7s (compile: 8.4s, render: 1237ms)
  GET /editor/1 200 in 1036ms (compile: 547ms, render: 488ms)
+ GET / 200 in 1475ms (compile: 241ms, render: 1233ms)
+ GET /editor/1 200 in 1738ms (compile: 852ms, render: 885ms)
+ GET / 200 in 563ms (compile: 30ms, render: 533ms)
+ GET /editor/1 200 in 220ms (compile: 71ms, render: 148ms)
+ GET /dashboard 200 in 205ms (compile: 84ms, render: 121ms)
