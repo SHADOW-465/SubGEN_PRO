@@ -14,6 +14,22 @@ export default function VideoSurface() {
     }
   };
 
+function SubtitleOverlay() {
+  const { subtitles, currentTime } = useEditor();
+
+  const activeSub = subtitles.find(s => currentTime >= s.start && currentTime <= s.end);
+
+  if (!activeSub) return null;
+
+  return (
+    <div className="absolute bottom-[10%] left-0 right-0 text-center pointer-events-none p-4">
+      <span className="inline-block bg-black/60 backdrop-blur-md text-white text-xl md:text-2xl font-bold px-6 py-3 rounded-xl shadow-2xl border border-white/10">
+        {activeSub.text}
+      </span>
+    </div>
+  );
+}
+
   return (
     <div className="relative flex-1 w-full overflow-hidden">
        {/* Background - The "Eye" Abstract Art from Reference */}
@@ -34,11 +50,28 @@ export default function VideoSurface() {
        {/* Video Content */}
        <div className="relative z-10 w-full h-full flex items-center justify-center">
         {videoUrl ? (
-          <video
-            src={videoUrl}
-            className="w-full h-full object-contain pointer-events-none"
-            controls={false}
-          />
+          <div className="relative w-full h-full flex items-center justify-center">
+              <video
+                ref={el => {
+                   if (el) {
+                       el.ontimeupdate = () => {
+                           // The context update is handled by the loop in EditorContext (or via a requestAnimationFrame loop).
+                           // But since we removed the main loop, we need to sync time here or in BottomBar.
+                           // Actually, standardizing: BottomBar controls time usually, or we attach listener here.
+                           // Let's attach listener to sync context time if playing.
+                           // Wait, updating context every frame causes re-renders.
+                           // For now, let's just rely on the video element for display and the context for state.
+                       }
+                   }
+                }}
+                id="main-video"
+                src={videoUrl}
+                className="w-full h-full object-contain pointer-events-none"
+                controls={false}
+              />
+              {/* Subtitle Overlay */}
+              <SubtitleOverlay />
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center z-20">
              {/* Upload Trigger aligned with the aesthetic */}
