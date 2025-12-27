@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useRef, useMemo } from 'react';
 
 // Types
-interface Subtitle {
+export interface Subtitle {
   id: number;
   start: number;
   end: number;
@@ -18,6 +18,7 @@ interface EditorState {
   subtitles: Subtitle[];
   isProcessing: boolean;
   statusMessage: string;
+  zoomLevel: number;
 }
 
 interface EditorContextType extends EditorState {
@@ -27,11 +28,13 @@ interface EditorContextType extends EditorState {
   setCurrentTime: (time: number) => void;
   setIsPlaying: (playing: boolean) => void;
   setActiveTab: (tab: string) => void;
-  setSubtitles: (subs: Subtitle[]) => void;
+  setSubtitles: (subs: Subtitle[] | ((prev: Subtitle[]) => Subtitle[])) => void;
   setIsProcessing: (processing: boolean) => void;
   setStatusMessage: (msg: string) => void;
+  setZoomLevel: (zoom: number) => void;
   togglePlay: () => void;
   seekTo: (time: number) => void;
+  addSubtitle: (sub: Subtitle) => void;
 }
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
@@ -43,16 +46,17 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [activeTab, setActiveTab] = useState('ai');
-  const [subtitles, setSubtitles] = useState<Subtitle[]>([
-     { id: 1, start: 5, end: 12, text: "WELCOME TO THE FUTURE" },
-     { id: 2, start: 15, end: 22, text: "AI POWERED EDITING" },
-     { id: 3, start: 25, end: 35, text: "PRECISION AND SPEED" }
-  ]);
+  const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusMessage, setStatusMessage] = useState('SYSTEM LIVE');
+  const [zoomLevel, setZoomLevel] = useState(25);
 
   const togglePlay = () => setIsPlaying(prev => !prev);
-  const seekTo = (time: number) => setCurrentTime(Math.max(0, Math.min(time, duration)));
+  const seekTo = (time: number) => setCurrentTime(Math.max(0, Math.min(time, duration || 60))); // Default duration if 0
+
+  const addSubtitle = (sub: Subtitle) => {
+    setSubtitles(prev => [...prev, sub].sort((a, b) => a.start - b.start));
+  };
 
   const value = {
     videoFile, setVideoFile,
@@ -64,8 +68,10 @@ export function EditorProvider({ children }: { children: React.ReactNode }) {
     subtitles, setSubtitles,
     isProcessing, setIsProcessing,
     statusMessage, setStatusMessage,
+    zoomLevel, setZoomLevel,
     togglePlay,
-    seekTo
+    seekTo,
+    addSubtitle
   };
 
   return (
